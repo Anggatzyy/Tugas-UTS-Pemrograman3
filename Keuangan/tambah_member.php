@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Member</title>
+</head>
+<?php
+    //Koneksi ke database
+    include 'koneksi.php';
+    //Menangkap data yang dikirim dari form 
+    if(!empty($_POST['save'])){
+        $kode_member = $_POST['kode_member'];
+        $nama_member = $_POST['nama_member'];
+        $level = $_POST['level'];
+        //menginput data ke database
+        $a = mysqli_query($koneksi,"insert into member values('','$kode_member','$nama_member','$level')");
+        if($a){
+            //mengalihkan halaman kembali
+            header("location:list_member.php");
+        }else{
+            echo mysqli_error();
+        }
+    }
+?>
+<body>
+    <h2>Pemograman 1 2023</h2>
+    <br>
+    <a href="list_member.php">Kembali</a>
+    <br><br>
+    <h3>TAMBAH DATA MEMBER</h3>
+    <form method="POST">
+        <table>
+            <tr>
+                <td>Nama Member</td>
+                <td><Input type="text" name="nama_member"></td>
+            </tr>
+            <tr>
+            <td>Level</td>
+                <td><select name="level" id="">
+                    <option value="">-----Pilih</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                </select>
+                <td></td>
+                <td><input type="submit" name="save"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
